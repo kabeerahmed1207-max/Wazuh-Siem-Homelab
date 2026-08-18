@@ -1,98 +1,62 @@
-# 🛡️ Wazuh SIEM Home Lab – SOC Portfolio Project
+# Exploring Wazuh – TryHackMe Lab Documentation
 
-A hands-on Security Operations Center (SOC) home lab built with **Wazuh SIEM** on VMware.  
-This project demonstrates endpoint monitoring, threat detection, log analysis, and incident response workflows commonly used by SOC Analysts.
-
----
-
-## 🎯 Project Objectives
-
-- Deploy and configure a fully functional Wazuh SIEM environment
-- Onboard Windows (and Linux) endpoints with Wazuh agents + Sysmon
-- Simulate real-world attacks and validate detections
-- Map alerts to the **MITRE ATT&CK** framework
-- Practice alert triage and write professional incident reports
+> Hands-on exploration of **Wazuh** (Open Source XDR + SIEM) using the official TryHackMe room  
+> **Room**: [Exploring Wazuh](https://tryhackme.com/room/exploringwazuh)
 
 ---
 
-## 🏗️ Lab Architecture
+## Why This Repository?
 
-| Component            | Role                          | OS                  | IP Address (Lab)   |
-|----------------------|-------------------------------|---------------------|--------------------|
-| Wazuh Server         | Manager + Indexer + Dashboard | Ubuntu 24.04        | 192.168.x.x        |
-| Windows Endpoint     | Monitored agent + Sysmon      | Windows 10/11       | 192.168.x.x        |
-| Kali Linux (optional)| Attacker machine              | Kali Linux          | 192.168.x.x        |
+I originally planned to build a full **home lab** with Wazuh Manager + Indexer + Dashboard on a local VMware Kali Linux machine and install the Agent on Windows.  
 
-> **Network**: Isolated Host-Only / NAT network on VMware  
-> **Hypervisor**: VMware Workstation / Player
+Due to **hardware limitations** (insufficient RAM), running a complete local Wazuh deployment was not feasible.  
 
-<!-- Add your network diagram later -->
-<!-- ![Architecture Diagram](architecture/network-diagram.png) -->
+Instead, I used the official **TryHackMe “Exploring Wazuh”** room, which provides a pre-configured Wazuh environment. This repository documents everything I learned, explored, and practiced in that lab.
+
+This approach still demonstrates practical understanding of Wazuh architecture, features, and SOC use cases.
 
 ---
 
-## 🛠️ Technologies Used
+## What is Wazuh?
 
-- **SIEM**: Wazuh (Manager, Indexer, Dashboard)
-- **Endpoint Visibility**: Sysmon (SwiftOnSecurity configuration)
-- **Virtualization**: VMware
-- **Attack Simulation**: Manual techniques + optional Metasploit
-- **Framework**: MITRE ATT&CK
+Wazuh is a free and open-source security platform that unifies:
+
+- **Endpoint Detection and Response (EDR / HIDS)**
+- **SIEM** capabilities
+- **Vulnerability Detection**
+- **Configuration Assessment** (CIS Benchmarks)
+- **File Integrity Monitoring (FIM)**
+- **Log Analysis & Alerting**
+- **Compliance reporting** (GDPR, HIPAA, NIST, PCI DSS, etc.)
+
+It follows a classic **Manager + Agent** architecture.
+
+### Architecture Overview
+
+| Component          | Role                                      |
+|--------------------|-------------------------------------------|
+| **Wazuh Agent**    | Installed on endpoints (Windows/Linux/macOS). Collects logs, performs local checks, and sends data to the Manager. |
+| **Wazuh Manager**  | Central orchestrator. Analyzes data, applies rules, generates alerts. |
+| **Wazuh Indexer**  | Based on OpenSearch. Stores and indexes alerts for fast searching. |
+| **Filebeat**       | Forwards data from Manager to Indexer. |
+| **Wazuh Dashboard**| Web GUI (based on OpenSearch Dashboards) for visualization, investigation, and reporting. |
+
+In the TryHackMe lab, all components run on a **single virtual machine**.
 
 ---
 
-## 🔍 Detections Implemented
+## Lab Environment (TryHackMe)
 
-| Attack Technique              | MITRE ATT&CK     | Detection Method                    | Severity |
-|-------------------------------|------------------|-------------------------------------|----------|
-| Brute Force Login             | T1110.001        | Failed logon events (4625)          | Medium   |
-| Local Account Creation        | T1136.001        | Event ID 4720 / 4732                | High     |
-| Suspicious PowerShell         | T1059.001        | Sysmon Event ID 1 + custom rule     | High     |
-| File Integrity Monitoring     | T1565 / T1070    | Wazuh FIM                           | Critical |
-| Defense Evasion (Agent stop)  | T1562.001        | Wazuh agent status                  | Medium   |
+- Pre-deployed Wazuh management server
+- Two agents already registered (Windows + Linux)
+- Agents appear as **Disconnected** (expected in the lab)
+- Login credentials provided in the room
 
 ---
 
-## 📁 Repository Structure
+## Topics Covered in This Lab
 
-wazuh-siem-homelab/
-├── README.md
-├── LICENSE
-├── .gitignore
-├── architecture/
-│   └── network-diagram.png
-├── setup/
-│   ├── wazuh-installation.md
-│   └── agent-sysmon-setup.md
-├── detections/
-│   ├── 01-brute-force.md
-│   ├── 02-privilege-escalation.md
-│   └── 03-powershell.md
-├── incident-reports/
-│   └── sample-incident-01.md
-├── screenshots/
-└── configs/
-
-
-
-## 📝 Key Skills Demonstrated
-
-- SIEM deployment and configuration (Wazuh)
-- Endpoint monitoring with Sysmon
-- Detection engineering & rule validation
-- MITRE ATT&CK mapping
-- Log analysis and alert triage
-- Incident documentation and reporting
-- Virtualized lab design (VMware)
-
-
-## 🚀 Future Improvements
-
-- [ ] Custom Wazuh rules & decoders
-- [ ] Integration with Suricata / pfSense
-- [ ] Automated response playbooks
-- [ ] Additional attack simulations (lateral movement, etc.)
-
-## 📄 License
-
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+### 1. Agents & Agent Groups
+- Viewing agent status and details
+- Understanding agent groups for policy and log configuration
+- Exploring agent
