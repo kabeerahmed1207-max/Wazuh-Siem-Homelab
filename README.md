@@ -59,4 +59,87 @@ In the TryHackMe lab, all components run on a **single virtual machine**.
 ### 1. Agents & Agent Groups
 - Viewing agent status and details
 - Understanding agent groups for policy and log configuration
-- Exploring agent
+- Exploring agent inventory (CPU, OS, etc.)
+
+### 2. IT Hygiene
+- System information (hardware, network interfaces, OS)
+- Installed software and packages
+- Listening ports
+- Local users and privileges
+
+### 3. Configuration Assessment (CIS Benchmarks)
+- Security hardening checks against CIS Benchmarks
+- Scoring and identifying misconfigurations
+
+### 4. Vulnerability Detection
+- Scanning agents for known vulnerabilities (CVEs)
+- Filtering by severity, package, and CVE ID
+- Understanding the difference between reported vs. actually exploitable vulnerabilities
+
+### 5. Logging & Log Analysis
+- Using **Discover** to search raw events
+- Understanding the difference between:
+  - Raw logs
+  - Decoders (parsing)
+  - Rules (alerting)
+  - Alerts (what appears in the dashboard)
+- Searching authentication logs (SSH), Windows Defender events, etc.
+
+### 6. Dashboards & Visualization
+- Exploring pre-built dashboards
+- Creating simple custom visualizations
+- Using the Demo Dashboard
+
+### 7. Advanced Concepts (Introduced)
+- Agent configuration via Groups
+- Decoders (how raw logs are parsed)
+- Custom Rules (how alerts are generated)
+- Active Response (automated actions on agents)
+- File Integrity Monitoring (FIM)
+
+---
+
+## Key Takeaways
+
+- Wazuh is much more than a simple HIDS — it is a full **XDR + SIEM** platform.
+- The power of Wazuh comes from the combination of **Decoders + Rules**.
+- Vulnerability Detection and CIS Configuration Assessment are extremely useful for GRC and IT teams.
+- IT Hygiene gives excellent visibility into endpoint inventory.
+- Proper agent grouping and custom log collection are essential for real SOC environments.
+
+---
+
+## Screenshots
+
+*(Add your screenshots here in a `/screenshots` folder)*
+
+- Overview page
+- Agents list
+- IT Hygiene view
+- Vulnerability Detection results
+- Discover search examples
+- Demo Dashboard
+- Rules / Decoders examples
+
+---
+
+## Future Plans
+
+When hardware resources allow, I plan to:
+
+- Deploy a full single-node Wazuh lab (Manager + Indexer + Dashboard)
+- Install agents on Windows and Linux
+- Create custom rules and Active Responses
+- Simulate attacks and document detection
+
+---
+
+## References
+
+- [TryHackMe – Exploring Wazuh](https://tryhackme.com/room/exploringwazuh)
+- [Official Wazuh Documentation](https://documentation.wazuh.com)
+- [Wazuh Website](https://wazuh.com)
+
+---
+
+**Disclaimer**: This repository is for educational purposes only. All hands-on work was performed in the official TryHackMe lab environment.
